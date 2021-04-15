@@ -1,3 +1,5 @@
+//Dining philosophers problem solved using threads
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -17,13 +19,17 @@ int forks[5] = {1,1,1,1,1};
 int seats[5] = {0,0,0,0,0};
 int tick = 0;
 
+
+//philosopher object
+//predetermined eat and think times
 struct philosopher{
-	int ID;	
-	int eatTime;
-	int thinkTime;
-	int seat;
+	int ID;				//random ID of philosopher
+	int eatTime;		//how long the philosopher eats
+	int thinkTime;		//how long the philosopher thinks
+	int seat;			//where at the "table they sit
 };
 
+//getting permission from coordinator to pick up forks and eat
 bool CoordinatorPermission(struct philosopher phil)
 {
 	//check which seat the philosopher is in
@@ -49,7 +55,6 @@ bool CoordinatorPermission(struct philosopher phil)
 			return true;
 		}
 		else
-			
 			return false;
 		
 	} else {
@@ -58,6 +63,8 @@ bool CoordinatorPermission(struct philosopher phil)
 	}
 }
 
+//seat is assigned to philosopher at table
+//locked so no one "shares" a seat
 int AssignSeat(struct philosopher phil)
 {
 	pthread_mutex_lock(&lockTwo);
@@ -70,6 +77,9 @@ int AssignSeat(struct philosopher phil)
 
 using namespace std;
 
+//function for thread to run
+//endless loop of philosophers asking permission to eat from coordinator
+//eating if coordinator says OK
 void *philosopherMethod(void *input)
 {
 	struct philosopher phil = *(struct philosopher *)input;
@@ -95,15 +105,17 @@ void *philosopherMethod(void *input)
 	}
 }
 
-
+//thread creation and join
 int main(int argc,char *argv[])
 {
-	int error;
-	//5 threads per assignment
+	//5 threads as per assignment
 	pthread_t thread[NUMPHIL];
 	struct philosopher phil[NUMPHIL];
 	int ID;
-	for (int i = 0; i < NUMPHIL; i++)
+	int error;
+	
+	//create threads
+	for (int i = 0; i < NUMPHIL; i++)	
 	{
 		phil[i].ID = rand()%1000 + 1;
 		phil[i].eatTime = rand()%TIMEMAX + 1;
@@ -113,7 +125,8 @@ int main(int argc,char *argv[])
 		sleep(0.5);
 	}
 	
-	for (int i = 0; i < NUMPHIL ; i++)					//joining threads
+	//joining threads
+	for (int i = 0; i < NUMPHIL ; i++)
 	{
 		pthread_join(thread[i],NULL);
 	}
