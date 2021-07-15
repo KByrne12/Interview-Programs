@@ -66,7 +66,7 @@ public class Model {
                         if (words.getDirection()) {                                                                     // check direction for algorithm ( horizontal )
                             if (((referencePoint.y - i1) < 780 && (referencePoint.y - (offset[0] * 25)) > 10 )){        // check bounds for within game screen
                                 tempWord = new Word(newWord, clue, referencePoint.x,
-                                        referencePoint.y - (offset[0] * 25), false, number);                 // construct a temporary word
+                                        referencePoint.y - (offset[0] * 25), false, number);                            // construct a temporary word
                                 if(checkWords(tempWord, referencePoint)){                                               // call checkWords for testing position
                                     tempWord.setConnected(offset[0]);                                                   // set newWord position as connected / unavailable
                                     words.setConnected(offset[1]);                                                      // set connected word as connected / unavailable
@@ -80,7 +80,7 @@ public class Model {
                         } else {                                                                                        // check direction for algorithm ( vertical )
                             if (((referencePoint.x - i1) < 780 && (referencePoint.x - (offset[0] * 25)) > 10 )){        // check bounds for within game screen
                                 tempWord = new Word(newWord, clue, referencePoint.x - (offset[0] * 25),
-                                        referencePoint.y, true, number);                                        // construct a temporary word
+                                        referencePoint.y, true, number);                                                // construct a temporary word
                                 if(checkWords(tempWord,referencePoint)){                                                // call checkWords for testing position
                                     tempWord.setConnected(offset[0]);                                                   // set newWord position as connected / unavailable
                                     words.setConnected(offset[1]);                                                      // set connected word as connected / unavailable
@@ -234,7 +234,7 @@ public class Model {
     public void attemptAddWord(String word, String clue){
         Word tempWord;
         if (wordList.isEmpty()) {                                                                                       // if the model is empty
-            tempWord = new Word(word, clue, 80, 80, true, number);                                        // create a word at 80, 80, horizontal
+            tempWord = new Word(word, clue, 80, 80, true, number);                                                      // create a word at 80, 80, horizontal
             number++;                                                                                                   // number for clue / word assignment
             try{
                 addWord(tempWord);                                                                                      // add word to wordList
