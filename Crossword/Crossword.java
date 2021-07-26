@@ -1,6 +1,16 @@
+package com.company;
+
 import java.io.*;
+import java.sql.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+
+//sql admin:
+    //mainMaster
+    //TrueLogin1!
+    //uNpn: US-ASHBURN-AD1
+    //VCN: HomeVCN - VCN-2021-07-21T16:17:38
+
 
 import static java.lang.System.exit;
 
@@ -22,16 +32,24 @@ public class Crossword {
         playGame();
     }
 
-    public void createGame() throws FileNotFoundException{
-        File file = new File("C:\\Users\\ksaso\\Desktop\\Important Info\\" +
-                "Coding\\Java\\CrosswordDatabase\\Words.txt");                                                          // open file database of words
-        Scanner reader = new Scanner(file);
-        String word,clue;
-        while(reader.hasNext()) {
-                word = reader.next();                                                                                   // first word on the line is the word
-                word.toLowerCase();                                                                                     // make word lowercase fo consistency
-                clue = reader.nextLine();                                                                               // the rest of the line is the clue
-                model.attemptAddWord(word,clue);                                                                        // attempt to add the word / clue to model
+    public void createGame(){
+        try(
+                Connection conn = DriverManager.getConnection("jdbc:Mysql://127.0.0.1:3306/crossword","mainMaster","TrueLogin1!");
+                Statement stmt = conn.createStatement();
+                )
+        {
+            String strSelect = "SELECT * FROM crossword.words";
+            ResultSet rSet = stmt.executeQuery(strSelect);
+
+            String word, clue;
+            while(rSet.next()){
+                word = rSet.getString("Word");
+                word.toLowerCase();
+                clue = rSet.getString("Clue");
+                model.attemptAddWord(word,clue);
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
         }
     }
 
