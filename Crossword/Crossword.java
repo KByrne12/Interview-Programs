@@ -1,8 +1,5 @@
-package com.company;
-
 import java.io.*;
 import java.sql.*;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 //sql admin:
@@ -23,7 +20,7 @@ public class Crossword {
 
     public Crossword(){}
 
-    public void runCrossword () throws FileNotFoundException {
+    public void runCrossword () {
         System.out.println("Crossword is running!");
         createGame();
         Model.setView(view);
