@@ -85,8 +85,4 @@ public class Process {
         BillsUI billsUI = new BillsUI();
         billsUI.billsProcess();
     }
-
-    public void run(){
-
-    }
 }
