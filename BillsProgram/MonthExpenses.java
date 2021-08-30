@@ -14,7 +14,6 @@ public class MonthExpenses {
         monthYear = date;
     }
 
-    //private to prevent unintended breaking of totals
     private void setTotal(float total){
         this.total = total;
     }
