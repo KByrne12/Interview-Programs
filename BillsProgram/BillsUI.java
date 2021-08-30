@@ -15,9 +15,6 @@ public class BillsUI {
 
     //process of BillsUI
     //calls for input of month and year
-    //calls function for converting to the key's mold
-    //calls function for checking if the key exists
-    //if no key exists, will ask to try again
     //if key exists, changes to UI for adding in values until specified done
     public void billsProcess(){
         boolean found = false;
@@ -35,8 +32,7 @@ public class BillsUI {
         }
     }
 
-    //returns int value from string input
-    // for commands
+    //returns int value from string input for commands
     public int getCommand() {
         do {
             try {
@@ -51,8 +47,7 @@ public class BillsUI {
         } while (true);
     }
 
-    //returns float value from string input
-    //for money values
+    //returns float value from string input for money values
     public float getValue(){
         do{
             try{
